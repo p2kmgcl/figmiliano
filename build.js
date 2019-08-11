@@ -58,15 +58,28 @@ const bundlePlugin = async (name) => {
 
   mkdirp.sync(outDir);
 
+  let manifest = {
+    name,
+    id: name,
+    api: '1.0.0',
+    ui: 'ui.html',
+    main: 'core.js',
+  };
+
+  try {
+    const localManifest = JSON.parse(
+      fs.readFileSync(path.join(inDir, 'manifest.json'), 'utf-8'),
+    );
+
+    manifest = {
+      ...manifest,
+      ...localManifest,
+    };
+  } catch (error) {}
+
   fs.writeFileSync(
     path.join(outDir, 'manifest.json'),
-    JSON.stringify({
-      name,
-      id: name,
-      api: '1.0.0',
-      ui: 'ui.html',
-      main: 'core.js',
-    }),
+    JSON.stringify(manifest),
   );
 
   await bundleFile(inDir, 'core.js', outDir, 'core.js');
