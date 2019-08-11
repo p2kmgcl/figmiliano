@@ -5,7 +5,7 @@
   "private": true,
   "main": "build.ts",
   "scripts": {
-    "build": "ts-node build.ts"
+    "build": "node build.js"
   },
   "author": "Pablo Molina <contact@pablomolina.me>",
   "dependencies": {
@@ -13,19 +13,15 @@
     "react-dom": "^16.9.0"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.1",
-    "@types/mkdirp": "^0.5.2",
-    "@types/node": "^12.7.1",
-    "@types/parcel-bundler": "^1.12.0",
-    "@types/react": "^16.9.1",
-    "@types/react-dom": "^16.8.5",
-    "@types/rimraf": "^2.0.2",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
     "glob": "^7.1.4",
+    "html-webpack-inline-source-plugin": "0.0.10",
+    "html-webpack-plugin": "^3.2.0",
     "mkdirp": "^0.5.1",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-wrapper": "^0.2.2",
     "rimraf": "^2.6.3",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3"
+    "webpack": "^4.39.1"
   }
 }
