@@ -52,7 +52,7 @@ const updateTextNodesPositions = () => {
 
 const updateTextNodesFontSizes = () => {
   textNodes.forEach((textNode, index) => {
-    textNode.fontSize = baseSize * Math.pow(ratio, index);
+    textNode.fontSize = Math.ceil(baseSize * Math.pow(ratio, index));
   });
 };
 
