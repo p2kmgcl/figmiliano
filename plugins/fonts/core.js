@@ -35,7 +35,8 @@ const createTextNodes = () => {
 
   if (textNodes.length) {
     page.selection = textNodes;
-    figma.group(textNodes, page);
+    const group = figma.group(textNodes, page);
+    group.name = `${fontName.family} ${fontName.style} (${sample})`;
     figma.viewport.scrollAndZoomIntoView(textNodes);
   }
 };
@@ -53,6 +54,9 @@ const updateTextNodesPositions = () => {
 const updateTextNodesFontSizes = () => {
   textNodes.forEach((textNode, index) => {
     textNode.fontSize = Math.ceil(baseSize * Math.pow(ratio, index));
+    textNode.name = `x${Math.pow(ratio, index).toFixed(2)} ≈ ${
+      textNode.fontSize
+    }px`;
   });
 };
 
