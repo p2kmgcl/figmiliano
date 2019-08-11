@@ -2,31 +2,22 @@ import { mountCore } from '../../common/mount-core';
 import { sendMessageToUI } from '../../common/messages-core';
 import { addListener } from '../../common/messages-common';
 
-const loadedFonts = new Set();
+const data = {};
 let textNodes = [];
 
-const loadFont = (fontName) => {
-  const fontId = JSON.stringify(fontName);
+const addDataListener = (name) => {
+  data[name] = null;
 
-  if (!loadedFonts.has(fontId)) {
-    loadedFonts.add(fontId);
-    return figma.loadFontAsync(fontName);
-  }
+  addListener(name, (newData) => {
+    data[name] = newData;
 
-  return Promise.resolve();
+    if (!Object.values(data).some((value) => value === null)) {
+      figma.loadFontAsync(data.fontName).then(render);
+    }
+  });
 };
 
-const getTextNode = (fontName, fontSize, characters) => {
-  const textNode = figma.createText();
-
-  textNode.fontName = fontName;
-  textNode.fontSize = fontSize;
-  textNode.characters = characters;
-
-  return textNode;
-};
-
-const render = (data) => {
+const render = () => {
   textNodes
     .filter((textNode) => !textNode.removed)
     .forEach((textNode) => textNode.remove());
@@ -35,11 +26,11 @@ const render = (data) => {
   textNodes = [];
 
   for (let i = 0; i < data.steps; i++) {
-    const textNode = getTextNode(
-      data.fontName,
-      data.baseSize * Math.pow(data.ratio, i),
-      data.sample,
-    );
+    const textNode = figma.createText();
+
+    textNode.fontName = data.fontName;
+    textNode.fontSize = data.baseSize * Math.pow(data.ratio, i);
+    textNode.characters = data.sample;
 
     textNode.y = position;
     position += textNode.height + data.spacing;
@@ -60,7 +51,10 @@ mountCore(() => {
     });
   });
 
-  addListener('render', (data) => {
-    loadFont(data.fontName).then(() => render(data));
-  });
+  addDataListener('sample');
+  addDataListener('baseSize');
+  addDataListener('steps');
+  addDataListener('spacing');
+  addDataListener('fontName');
+  addDataListener('ratio');
 });

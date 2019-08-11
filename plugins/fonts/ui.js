@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { mountUI } from '../../common/mount-ui';
-import { useMessage, sendMessageToCore } from '../../common/messages-ui';
-import { Label, LabelContent } from '../../components/label';
+import { useMessage } from '../../common/messages-ui';
 import { Select } from '../../components/select';
-import { Input } from '../../components/input';
+import { SyncedInput } from '../../components/synced-input';
+
+const RATIO_LIST = [
+  { name: 'Minor Second (16:15)', value: 16.0 / 15 },
+  { name: 'Major Second (1.125)', value: 1.125 },
+  { name: 'Minor Third (1.2)', value: 1.2 },
+  { name: 'Major Third (1.25)', value: 1.25 },
+  { name: 'Perfect Fourth (4:3)', value: 4.0 / 3 },
+  { name: 'Aug Fourth (1.414)', value: 1.414 },
+  { name: 'Perfect Fifth (1.5)', value: 1.5 },
+  { name: 'Minor Sixth (1.6)', value: 1.6 },
+  { name: 'Golden Section (1.618)', value: 1.61803398875 },
+  { name: 'Major Sixth (5:3)', value: 5.0 / 3 },
+  { name: 'Minor Seventh (16:9)', value: 16.0 / 9 },
+  { name: 'Major Seventh (1.875)', value: 1.875 },
+  { name: 'Octave (2)', value: 2.0 },
+  { name: 'Major Tenth (2.5)', value: 2.5 },
+  { name: 'Major Eleventh (8:3)', value: 8.0 / 3 },
+  { name: 'Major Twelfth (3)', value: 3.0 },
+  { name: 'Double Octave (4)', value: 4.0 },
+];
 
 const UI = () => {
-  const [baseSize, setBaseSize] = useState(12);
-  const [sample, setSample] = useState(
-    'The quick brown fox jumps over the lazy dog',
-  );
-  const [fontName, setFontName] = useState(
-    JSON.stringify({ family: 'Roboto', style: 'Regular' }),
-  );
-  const [ratio, setRatio] = useState(1.06666666667);
-  const [spacing, setSpacing] = useState(8);
-  const [steps, setSteps] = useState(5);
-
-  const handleInputChange = (setter) => (event) => {
-    setter(event.target.value);
-  };
-
   const fontList = useMessage('font-list', null, [])
     .map((font) => font.fontName)
     .map((fontName) => {
       const id = `${fontName.family} ${fontName.style}`;
+
       return (
         <option key={id} value={JSON.stringify(fontName)}>
           {id}
@@ -32,112 +37,66 @@ const UI = () => {
       );
     });
 
-  useEffect(() => {
-    sendMessageToCore('render', {
-      baseSize: parseInt(baseSize, 10) || 12,
-      fontName: JSON.parse(fontName),
-      ratio: parseFloat(ratio) || 1.06666666667,
-      spacing: parseInt(spacing, 10) || 0,
-      steps: parseInt(steps, 10) || 5,
-      sample,
-    });
-  }, [baseSize, fontName, sample, ratio, spacing, steps]);
+  const ratioList = RATIO_LIST.map((ratio) => (
+    <option key={ratio.value} value={ratio.value}>
+      {ratio.name}
+    </option>
+  ));
 
   return (
     <form>
-      <Label>
-        <LabelContent>Sample</LabelContent>
+      <SyncedInput
+        name="sample"
+        label="Sample"
+        defaultValue="The quick brown fox jumps over the lazy dog"
+      />
 
-        <Input
-          required
-          type="text"
-          value={sample}
-          onChange={handleInputChange(setSample)}
-          placeholder="The quick brown fox jumps over the lazy dog"
-        />
-      </Label>
+      <SyncedInput
+        type="number"
+        name="baseSize"
+        label="Base Size"
+        defaultValue="12"
+        inputAttributes={{ min: 1 }}
+        parseValue={(value) => parseInt(value, 10)}
+      />
 
-      <Label>
-        <LabelContent>Base size</LabelContent>
+      <SyncedInput
+        type="number"
+        name="steps"
+        label="Steps"
+        defaultValue="5"
+        inputAttributes={{ min: 1 }}
+        parseValue={(value) => parseInt(value, 10)}
+      />
 
-        <Input
-          required
-          min="1"
-          step="1"
-          type="number"
-          value={baseSize}
-          placeholder="12"
-          onChange={handleInputChange(setBaseSize)}
-        />
-      </Label>
+      <SyncedInput
+        type="number"
+        name="spacing"
+        label="Spacing"
+        defaultValue="8"
+        inputAttributes={{ min: 0 }}
+        parseValue={(value) => parseInt(value, 10)}
+      />
 
-      <Label>
-        <LabelContent>Font family</LabelContent>
+      <SyncedInput
+        name="fontName"
+        label="Font name"
+        placeholder="Roboto Regular"
+        defaultValue={JSON.stringify({ family: 'Roboto', style: 'Regular' })}
+        parseValue={(value) => JSON.parse(value)}
+        inputAttributes={{ children: fontList }}
+        InputComponent={Select}
+      />
 
-        <Select
-          required
-          value={fontName}
-          placeholder="Roboto Regular"
-          onChange={handleInputChange(setFontName)}
-        >
-          {fontList}
-        </Select>
-      </Label>
-
-      <Label>
-        <LabelContent>Ratio</LabelContent>
-
-        <Select
-          required
-          value={ratio}
-          placeholder="Minor Second (16:15)"
-          onChange={handleInputChange(setRatio)}
-        >
-          <option value="1.06666666667">Minor Second (16:15)</option>
-          <option value="1.12500000000">Major Second (1.125)</option>
-          <option value="1.20000000000">Minor Third (1.2)</option>
-          <option value="1.25000000000">Major Third (1.25)</option>
-          <option value="1.33333333333">Perfect Fourth (4:3)</option>
-          <option value="1.41400000000">Aug Fourth (1.414)</option>
-          <option value="1.50000000000">Perfect Fifth (1.5)</option>
-          <option value="1.60000000000">Minor Sixth (1.6)</option>
-          <option value="1.61803398875">Golden Section (1.618)</option>
-          <option value="1.66666666667">Major Sixth (5:3)</option>
-          <option value="1.77777777778">Minor Seventh (16:9)</option>
-          <option value="1.87500000000">Major Seventh (1.875)</option>
-          <option value="2.000000000000">Octave (2)</option>
-          <option value="2.500000000000">Major Tenth (2.5)</option>
-          <option value="2.666666666667">Major Eleventh (8:3)</option>
-          <option value="3.000000000000">Major Twelfth (3)</option>
-          <option value="4.000000000000">Double Octave (4)</option>
-        </Select>
-      </Label>
-
-      <Label>
-        <LabelContent>Steps</LabelContent>
-
-        <Input
-          min="1"
-          required
-          type="number"
-          value={steps}
-          placeholder="5"
-          onChange={handleInputChange(setSteps)}
-        />
-      </Label>
-
-      <Label>
-        <LabelContent>Spacing</LabelContent>
-
-        <Input
-          min="0"
-          required
-          type="number"
-          value={spacing}
-          placeholder="8"
-          onChange={handleInputChange(setSpacing)}
-        />
-      </Label>
+      <SyncedInput
+        name="ratio"
+        label="Ratio"
+        placeholder="Minor Second (16:15)"
+        defaultValue={(16 / 15).toString()}
+        parseValue={(value) => parseFloat(value)}
+        inputAttributes={{ children: ratioList }}
+        InputComponent={Select}
+      />
     </form>
   );
 };
