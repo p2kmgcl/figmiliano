@@ -24,7 +24,7 @@ const bundleFile = (inDir, inFile, outDir, outFile) =>
 
     webpack(
       {
-        mode: 'development',
+        mode: 'production',
         devtool: false,
         entry: path.resolve(inDir, inFile),
         output: {
