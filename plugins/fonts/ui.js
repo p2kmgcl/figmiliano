@@ -25,7 +25,7 @@ const RATIO_LIST = [
 ];
 
 const UI = () => {
-  const fontList = useMessage('font-list', null, [])
+  const fontList = useMessage('fontList', null, [])
     .map((font) => font.fontName)
     .map((fontName) => {
       const id = `${fontName.family} ${fontName.style}`;
