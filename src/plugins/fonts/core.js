@@ -47,7 +47,7 @@ const createTextNodes = () => {
 const updateTextNodesPositions = () => {
   let accPosition = 0;
 
-  textNodes.forEach((textNode) => {
+  [...textNodes].reverse().forEach((textNode) => {
     textNode.x = 0;
     textNode.y = accPosition;
     accPosition = accPosition + textNode.height + spacing;
