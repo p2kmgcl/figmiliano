@@ -6,7 +6,8 @@ export const LabelContent = (props) => (
       display: 'inline-block',
       paddingRight: '1ch',
       whiteSpace: 'nowrap',
-      minWidth: '10ch',
+      minWidth: '12ch',
+      flexShrink: '0',
       ...(props.style || {}),
     }}
     {...props}

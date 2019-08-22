@@ -1,7 +1,7 @@
 import { addCoreMessageListener } from './messages-core';
 
-export const mountCore = (callback) => {
+export const mountCore = (callback, options = {}) => {
   addCoreMessageListener();
-  figma.showUI(__html__);
+  figma.showUI(__html__, options);
   callback();
 };

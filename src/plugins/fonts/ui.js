@@ -54,7 +54,7 @@ const UI = () => {
       <SyncedInput
         type="number"
         name="baseSize"
-        label="Base Size"
+        label="Base size"
         defaultValue="12"
         inputAttributes={{ min: 1 }}
         parseValue={(value) => parseInt(value, 10)}
@@ -90,7 +90,7 @@ const UI = () => {
 
       <SyncedInput
         name="ratio"
-        label="Ratio"
+        label="Modular scale"
         placeholder="Minor Second (16:15)"
         defaultValue={(16 / 15).toString()}
         parseValue={(value) => parseFloat(value)}

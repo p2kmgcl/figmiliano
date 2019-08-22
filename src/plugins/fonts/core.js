@@ -125,7 +125,10 @@ const main = () => {
 };
 
 figma.loadFontAsync(fontName).then(() =>
-  mountCore(() => {
-    main();
-  }),
+  mountCore(
+    () => {
+      main();
+    },
+    { width: 350, height: 250 },
+  ),
 );
