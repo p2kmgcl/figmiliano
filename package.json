@@ -5,7 +5,8 @@
   "private": true,
   "main": "build.ts",
   "scripts": {
-    "build": "NODE_ENV=production node build.js"
+    "build": "NODE_ENV=production node build.js",
+    "start": "nodemon --watch src --exec \"NODE_ENV=development node build.js\""
   },
   "author": "Pablo Molina <contact@pablomolina.me>",
   "dependencies": {
@@ -25,6 +26,7 @@
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",
     "mkdirp": "^0.5.1",
+    "nodemon": "^1.19.1",
     "rimraf": "^2.6.3",
     "webpack": "^4.39.1"
   }
