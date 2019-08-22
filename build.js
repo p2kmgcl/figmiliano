@@ -53,7 +53,7 @@ const bundleFile = (inDir, inFile, outDir, outFile) =>
   });
 
 const bundlePlugin = async (name) => {
-  const inDir = path.join('plugins', name);
+  const inDir = path.join('src', 'plugins', name);
   const outDir = path.join('build', name);
 
   mkdirp.sync(outDir);
@@ -90,8 +90,8 @@ const bundle = async () => {
   rimraf.sync('build');
   mkdirp.sync('build');
 
-  for (const pluginPath of glob.sync('plugins/*')) {
-    const [, name] = pluginPath.split('/');
+  for (const pluginPath of glob.sync('src/plugins/*')) {
+    const [, , name] = pluginPath.split('/');
     await bundlePlugin(name);
   }
 
