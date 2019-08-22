@@ -11,9 +11,12 @@ let fontName = { family: 'Roboto', style: 'Regular' };
 let sample = '';
 let spacing = 0;
 let textNodes = [];
-let steps = 0;
+let decreaseSteps = 0;
+let increaseSteps = 0;
 
 const createTextNodes = () => {
+  const steps = decreaseSteps + increaseSteps + 1;
+
   textNodes = textNodes.filter((textNode) => !textNode.removed);
 
   if (steps < textNodes.length) {
@@ -52,11 +55,16 @@ const updateTextNodesPositions = () => {
 };
 
 const updateTextNodesFontSizes = () => {
+  let currentRatio = decreaseSteps ? 1 / Math.pow(ratio, decreaseSteps) : 1;
+
   textNodes.forEach((textNode, index) => {
-    textNode.fontSize = Math.ceil(baseSize * Math.pow(ratio, index));
-    textNode.name = `x${Math.pow(ratio, index).toFixed(2)} ≈ ${
-      textNode.fontSize
-    }px`;
+    const fontRatio = currentRatio;
+    const fontSize = Math.ceil(baseSize * fontRatio);
+
+    textNode.fontSize = fontSize;
+    textNode.name = `x${fontRatio.toFixed(2)} ≈ ${fontSize}px`;
+
+    currentRatio *= ratio;
   });
 };
 
@@ -90,9 +98,16 @@ const main = () => {
     updateTextNodesPositions();
   });
 
-  addListener('steps', (newSteps) => {
-    steps = newSteps;
+  addListener('decreaseSteps', (newSteps) => {
+    decreaseSteps = newSteps;
     createTextNodes();
+    updateTextNodesFontSizes();
+  });
+
+  addListener('increaseSteps', (newSteps) => {
+    increaseSteps = newSteps;
+    createTextNodes();
+    updateTextNodesFontSizes();
   });
 
   addListener('sample', (newSample) => {
@@ -129,6 +144,6 @@ figma.loadFontAsync(fontName).then(() =>
     () => {
       main();
     },
-    { width: 350, height: 250 },
+    { width: 350, height: 280 },
   ),
 );

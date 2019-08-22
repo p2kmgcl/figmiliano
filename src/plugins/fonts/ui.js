@@ -62,10 +62,19 @@ const UI = () => {
 
       <SyncedInput
         type="number"
-        name="steps"
-        label="Steps"
-        defaultValue="5"
-        inputAttributes={{ min: 1 }}
+        name="decreaseSteps"
+        label="Decrease steps"
+        defaultValue="2"
+        inputAttributes={{ min: 0 }}
+        parseValue={(value) => parseInt(value, 10)}
+      />
+
+      <SyncedInput
+        type="number"
+        name="increaseSteps"
+        label="Increase steps"
+        defaultValue="4"
+        inputAttributes={{ min: 0 }}
         parseValue={(value) => parseInt(value, 10)}
       />
 
