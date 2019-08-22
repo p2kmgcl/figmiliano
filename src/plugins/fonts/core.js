@@ -59,10 +59,10 @@ const updateTextNodesFontSizes = () => {
 
   textNodes.forEach((textNode, index) => {
     const fontRatio = currentRatio;
-    const fontSize = Math.ceil(baseSize * fontRatio);
+    const fontSize = baseSize * fontRatio;
 
     textNode.fontSize = fontSize;
-    textNode.name = `x${fontRatio.toFixed(2)} ≈ ${fontSize}px`;
+    textNode.name = `x${fontRatio.toFixed(2)} ≈ ${fontSize.toFixed(2)}px`;
 
     currentRatio *= ratio;
   });
