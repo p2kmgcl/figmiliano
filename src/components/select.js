@@ -7,6 +7,9 @@ export const Select = (props) => (
       fontSize: '1em',
       flexGrow: 1,
       width: '100%',
+      border: 'solid thin #ebebeb',
+      borderRadius: '2px',
+      padding: '0.4rem 0.5rem',
       ...(props.style || {}),
     }}
     {...props}

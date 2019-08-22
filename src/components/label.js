@@ -18,6 +18,7 @@ export const Label = (props) => (
     style={{
       display: 'flex',
       alignItems: 'center',
+      color: '#b9b9b9',
       margin: '1em 0',
       padding: '0 4px 0 8px',
       ...(props.style || {}),
