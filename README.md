@@ -1,6 +1,7 @@
 # Figmiliano
 
 - **[Available plugins][1]**
+- **[Changelog][6]**
 - **[Contributing guidelines][2]**
 - **[Code of conduct][5]**
 - **[License][3]**
@@ -24,3 +25,4 @@
 [3]: https://github.com/p2kmgcl/figmiliano/blob/master/LICENSE
 [4]: https://github.com/p2kmgcl/figmiliano/issues/new/choose
 [5]: https://github.com/p2kmgcl/figmiliano/blob/master/CODE_OF_CONDUCT.md
+[6]: https://github.com/p2kmgcl/figmiliano/blob/master/CHANGELOG.md
