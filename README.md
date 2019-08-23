@@ -22,5 +22,5 @@
 [1]: https://github.com/p2kmgcl/figmiliano/tree/master/src/plugins
 [2]: https://github.com/p2kmgcl/figmiliano/blob/master/CONTRIBUTING.md
 [3]: https://github.com/p2kmgcl/figmiliano/blob/master/LICENSE
-[4]: mailto:figmiliano@pablomolina.me
+[4]: https://github.com/p2kmgcl/figmiliano/issues/new/choose
 [5]: https://github.com/p2kmgcl/figmiliano/blob/master/CODE_OF_CONDUCT.md
