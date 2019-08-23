@@ -55,7 +55,7 @@ const UI = () => {
         type="number"
         name="baseSize"
         label="Base size"
-        defaultValue="12"
+        defaultValue="16"
         inputAttributes={{ min: 1 }}
         parseValue={(value) => parseInt(value, 10)}
       />

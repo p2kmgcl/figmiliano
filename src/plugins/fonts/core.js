@@ -5,7 +5,7 @@ import { addListener } from '../../common/messages-common';
 const page = figma.currentPage;
 const loadedFonts = new Set();
 
-let baseSize = 12;
+let baseSize = 16;
 let ratio = 1;
 let fontName = { family: 'Roboto', style: 'Regular' };
 let sample = '';
