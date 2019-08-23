@@ -44,7 +44,14 @@ const bundleFile = (inDir, inFile, outDir, outFile) =>
       },
       (error, stats) => {
         if (error || stats.hasErrors()) {
-          console.error(error || stats.toJson());
+          if (error) {
+            console.log(error);
+          } else {
+            stats
+              .toJson()
+              .errors.forEach((statError) => console.log(statError));
+          }
+
           reject(error || stats);
         } else {
           resolve(stats);
@@ -93,7 +100,11 @@ const bundle = async () => {
 
   for (const pluginPath of glob.sync('src/plugins/*')) {
     const [, , name] = pluginPath.split('/');
-    await bundlePlugin(name);
+    try {
+      await bundlePlugin(name);
+    } catch (error) {
+      process.exit(1);
+    }
   }
 
   process.exit(0);
