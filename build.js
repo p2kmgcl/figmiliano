@@ -99,14 +99,19 @@ const bundle = async () => {
   mkdirp.sync('build');
 
   for (const pluginPath of glob.sync('src/plugins/*')) {
-    const [, , name] = pluginPath.split('/');
-    try {
-      await bundlePlugin(name);
-    } catch (error) {
-      process.exit(1);
+    if (fs.lstatSync(pluginPath).isDirectory()) {
+      const [, , name] = pluginPath.split('/');
+
+      try {
+        await bundlePlugin(name);
+        console.log(`Plugin '${name}'`);
+      } catch (error) {
+        process.exit(1);
+      }
     }
   }
 
+  console.log('\ndone');
   process.exit(0);
 };
 
