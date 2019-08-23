@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "build.ts",
+  "main": "build.js",
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "build": "NODE_ENV=production node build.js",
     "start": "nodemon --watch src --exec \"NODE_ENV=development node build.js\""
   },
-  "author": "Pablo Molina <contact@pablomolina.me>",
+  "author": {
+    "name": "Pablo Molina",
+    "url": "figmiliano@pablomolina.me"
+  },
+  "engines": {
+    "node": ">= 10.0.0",
+    "npm": ">= 6.0.0"
+  },
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
