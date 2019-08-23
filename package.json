@@ -7,7 +7,8 @@
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "build": "NODE_ENV=production node build.js",
-    "start": "nodemon --watch src --exec \"NODE_ENV=development node build.js\""
+    "start": "nodemon --watch src --exec \"NODE_ENV=development node build.js\"",
+    "test": "jest"
   },
   "author": {
     "name": "Pablo Molina",
@@ -26,15 +27,21 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.3",
+    "@types/jest": "^24.0.18",
     "@types/prop-types": "^15.7.1",
     "@types/react": "^16.9.1",
     "@types/react-dom": "^16.8.5",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "glob": "^7.1.4",
     "html-webpack-inline-source-plugin": "0.0.10",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.9.0",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.19.1",
+    "react-test-renderer": "^16.9.0",
     "rimraf": "^2.6.3",
     "webpack": "^4.39.1"
   }
