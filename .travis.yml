@@ -1,0 +1,22 @@
+language: node_js
+
+node_js:
+  - 10
+  - 12
+
+os:
+  - linux
+
+env:
+  - NPM_BUILD_SCRIPT: build
+  - NPM_BUILD_SCRIPT: test
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install
+
+script:
+  - npm run $NPM_BUILD_SCRIPT
